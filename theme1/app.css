@@ -1304,6 +1304,10 @@ body {
 .main-header .navbar {
   background: lightseagreen !important;
 }
+.main-header .navbar .dropdown-toggle {
+  padding-left: 30px;
+  font-size: 1em;
+}
 .main-header .navbar .panel-title {
   font-weight: 900;
   font-size: 3em;
