@@ -89,7 +89,8 @@ class TMenu extends TElement
             if ($xmlElement->menu)
             {
                 $menu_atts = $xmlElement->menu->attributes();
-                $menu_class = !empty( $menu_atts['class'] ) ? $menu_atts['class']: $this->menu_class;
+                //$menu_class = !empty( $menu_atts['class'] ) ? $menu_atts['class']: $this->menu_class;
+                $menu_class = !empty( $menu_atts['class'] ) ? $menu_atts['class']: 'dropdown-menu';
                 $menu = new TMenu($xmlElement-> menu-> menuitem, $permission_callback, $this->menu_level +1, $menu_class, $this->item_class, $this->link_class, $this->item_transformer);
 
                 foreach (parent::getProperties() as $property => $value)
