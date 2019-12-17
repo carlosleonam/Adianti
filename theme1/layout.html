@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html style="height: auto; min-height: 100%;">
+<head>
+    <title>{EMPRESA}</title>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <link href="manifest.json?appver=700" rel="manifest">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="app/images/icon.png" rel="apple-touch-icon" sizes="180x180">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="default" name="apple-mobile-web-app-status-bar-style">
+
+    {LIBRARIES}
+    {HEAD}
+
+    <script src="app/lib/include/admin-all.min.js?appver=700" type="text/javascript"></script>
+    <link href="app/lib/include/admin.min.css?appver=700" media="screen" rel="stylesheet" type="text/css">
+
+    <link href="app/templates/{template}/css/AdminLTE.min.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="app/templates/{template}/css/skins/_all-skins.min.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script>
+        function update_messages_menu() {
+            $.get( 'engine.php?class=MessageList&theme=theme3', function ( data ) {
+                $( '#envelope_messages' ).html( data );
+            } );
+        }
+
+        function update_notifications_menu() {
+            $.get( 'engine.php?class=NotificationList&theme=theme3', function ( data ) {
+                $( '#envelope_notifications' ).html( data );
+            } );
+        }
+
+        $( function () {
+            update_notifications_menu();
+
+            // setInterval( update_notifications_menu, 5000);
+            $(window).on('load', function() {
+                $('#navbar-collapse').removeClass('collapse');
+                $('.navbar-toggle').removeClass('collapsed');
+            })
+            __adianti_set_language( '{lang}' );
+            __adianti_set_debug( '{ debug }' );
+        } );
+    </script>
+</head>
+
+<body class="hold-transition skin-blue layout-top-nav">
+<div class="wrapper">
+
+    <header class="main-header">
+        <nav class="navbar navbar-static-top" role="navigation">
+            <div class="container">
+                <!-- Sidebar toggle button-->
+                <div class="navbar-header">
+                    <a href="../../index2.html" class="navbar-brand"><b>Favareto</b> Leilões</a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        {MENU}
+                    </ul>
+                </div>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown notifications-menu" id="envelope_notifications">
+                        </li>
+                        <li class="dropdown notifications-menu" id="support">
+                            <a generator="adianti" href="index.php?class=SystemSupportForm">
+                                <i class="fa fa-life-ring fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown user user-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-user"></i>
+                                <span class="hidden-xs">{username}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header" style="height:initial">
+                                    <!-- <i class="fa fa-user fa-3x" style="color:white"></i> -->
+                                    <img alt="User"
+                                         onError="this.onerror=null;this.src='app/templates/{template}/img/avatar5.png';"
+                                         src="app/images/photos/{login}.jpg" style="border-radius:50%"/>
+                                    <p>
+                                        {username}<br>
+                                        <a href="index.php?class=SystemProfileView" style="color:white;font-size:12px">[_t{Profile}]</a>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a class="btn btn-default btn-flat"
+                                           generator="adianti"
+                                           href="index.php?class=LoginForm&method=reloadPermissions&static=1">_t{Reload}</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a class="btn btn-default btn-flat" generator="adianti"
+                                           href="index.php?class=LoginForm&method=onLogout&static=1">_t{Exit}</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper container-fluid">
+        <!-- Main content -->
+        <section class="content">
+            <ul class="nav nav-tabs" id="app-content-tab">
+            </ul>
+            <div class="tab-content" id="tab-content-page">
+                <div class="tab-pane fade in active" id="tabprincipal">
+                    <div id="adianti_div_content"></div>
+                </div
+            </div>
+        </section><!-- /.content -->
+
+        <div id="adianti_online_content"></div>
+        <div id="adianti_online_content2"></div>
+
+        <div class="right-panel" id="adianti_right_panel"></div>
+    </div><!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.0.0
+        </div>
+        <strong>{userunitid} - {userunitname}</strong>
+        <!--[IFADMIN]-->
+        <a generator="adianti" href="index.php?class=SystemModulesCheckView" style="cursor:pointer; color: teal"> <i
+                aria-hidden="true" class="fa fa-code"></i> PHP Modules </a> &nbsp;&nbsp;
+        <span onclick="Adianti.showDebugPanel()" style="cursor:pointer; color: teal">
+          <i aria-hidden="true" class="fa fa-window-maximize"></i> Debug Console
+        </span>
+        <!--[/IFADMIN]-->
+    </footer>
+
+    <div class="debug-panel" id="adianti_debug_panel">
+        <i aria-hidden="true" class="fa fa-times" onclick="Adianti.hideDebugPanel()" title="_t{Close}"></i>
+        <span> Request URL </span>
+        <span> Request Data </span>
+        <div id="request_url_panel"></div>
+        <div id="request_data_panel"></div>
+    </div>
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div><!-- ./wrapper -->
+
+<!-- AdminLTE App -->
+<script src="app/templates/{template}/js/app.min.js"></script>
+<script src="app/templates/{template}/js/custom.js"></script>
+</body>
+</html>
